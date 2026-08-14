@@ -1,6 +1,6 @@
 # ++PROJECT-TITLE++ / ++PROJECT-TITLE-ZH++
 
-Rose Pine 论文（`article` / `ctexart` + XeLaTeX）。
+Rose Pine paper (`article` + pdfLaTeX / `ctexart` + XeLaTeX).
 
 ```
 main.tex / main_zh.tex
@@ -12,5 +12,5 @@ rosepine/
 just build-en    # → build/<dir>-en.pdf
 just build-zh    # → build/<dir>-zh.pdf
 just build
-just clean       # 只清 .tmp/
+just clean       # .tmp/ only
 ```

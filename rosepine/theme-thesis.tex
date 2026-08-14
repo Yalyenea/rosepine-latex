@@ -1,0 +1,67 @@
+% Rose Pine — thesis extras (after theme.tex + theme-book.tex).
+% Labels are English here (pdfLaTeX). Chinese starters renew them.
+
+\newcommand{\ThesisSchool}{}
+\newcommand{\ThesisDegree}{Doctor of Philosophy}
+\newcommand{\ThesisSupervisor}{}
+\newcommand{\ThesisSupervisorLabel}{Supervisor}
+\newcommand{\ThesisSubmitted}{A thesis submitted for the degree of}
+
+\newcommand{\makethesiscover}{%
+  \begin{titlepage}
+    \begin{tikzpicture}[remember picture, overlay]
+      \fill[coverbg] (current page.south west) rectangle (current page.north east);
+      \draw[coveraccent, line width=1.5pt]
+        ([yshift=-2.5cm]current page.north west) -- ([yshift=-2.5cm]current page.north east);
+      \draw[coverpine, line width=1.5pt]
+        ([yshift=2.5cm]current page.south west) -- ([yshift=2.5cm]current page.south east);
+      \node[regular polygon, regular polygon sides=4, draw=coveraccent, line width=1pt,
+            inner sep=0pt, minimum size=10pt, rotate=45]
+        at ([yshift=-2.5cm]current page.north) {};
+      \node[regular polygon, regular polygon sides=4, draw=coverpine, line width=1pt,
+            inner sep=0pt, minimum size=10pt, rotate=45]
+        at ([yshift=2.5cm]current page.south) {};
+      \node[anchor=north, font=\normalsize\color{coveriris},
+            text width=0.82\paperwidth, align=center]
+        at ([yshift=-3.2cm]current page.north) {\ThesisSchool};
+      \node[anchor=center, font=\fontsize{24}{30}\selectfont\bfseries\color{covertxt},
+            text width=0.82\paperwidth, align=center]
+        at ([yshift=2.6cm]current page.center) {\CoverTitle};
+      \node[anchor=center, font=\fontsize{13}{18}\selectfont\color{coveriris},
+            text width=0.78\paperwidth, align=center]
+        at ([yshift=0.85cm]current page.center) {\CoverSubtitle};
+      \draw[coveraccent, line width=1pt]
+        ([xshift=-3cm, yshift=-0.15cm]current page.center) --
+        ([xshift=3cm, yshift=-0.15cm]current page.center);
+      \node[regular polygon, regular polygon sides=4, draw=coveraccent, fill=coverbg,
+            line width=0.8pt, inner sep=0pt, minimum size=6pt, rotate=45]
+        at ([yshift=-0.15cm]current page.center) {};
+      \node[anchor=center, font=\small\color{rpsubtle},
+            text width=0.8\paperwidth, align=center]
+        at ([yshift=-1.05cm]current page.center) {\ThesisSubmitted};
+      \node[anchor=center, font=\large\color{coverpine},
+            text width=0.8\paperwidth, align=center]
+        at ([yshift=-1.65cm]current page.center) {\ThesisDegree};
+      \node[anchor=center, font=\normalsize\color{covertxt},
+            text width=0.8\paperwidth, align=center]
+        at ([yshift=-2.55cm]current page.center) {\CoverAuthors};
+      \node[anchor=center, font=\small\color{rpsubtle},
+            text width=0.8\paperwidth, align=center]
+        at ([yshift=-3.35cm]current page.center) {%
+          \ThesisSupervisorLabel:~\ThesisSupervisor};
+      \node[anchor=south, font=\footnotesize\color{rpmuted}]
+        at ([yshift=3.2cm]current page.south) {\today};
+    \end{tikzpicture}
+  \end{titlepage}
+}
+
+\newenvironment{thesisabstract}[1][Abstract]{%
+  \chapter*{#1}
+  \addcontentsline{toc}{chapter}{#1}
+  \markboth{#1}{#1}%
+}{}
+
+\newcommand{\thesiskeywords}[1]{%
+  \par\vspace{0.55em}
+  \noindent{\bfseries\color{chaptercolor} Keywords:}\ \textcolor{rptext}{#1}\par
+}

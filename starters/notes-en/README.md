@@ -1,6 +1,6 @@
 # ++PROJECT-TITLE++
 
-Rose Pine English lecture notes (`article` + XeLaTeX).
+Rose Pine English lecture notes (`article` + pdfLaTeX).
 
 ```bash
 just build

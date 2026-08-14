@@ -1,0 +1,14 @@
+% Chinese abstract / keywords. Load after theme-article.tex. XeLaTeX only.
+
+\newenvironment{abstractboxzh}{%
+  \par\noindent{\bfseries\color{chaptercolor} 摘要}\par\smallskip
+  \begin{tcolorbox}[
+    enhanced, colback=boxbg, colframe=boxframe,
+    boxrule=0.6pt, arc=3pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+  ]%
+}{\end{tcolorbox}}
+
+\newcommand{\keywordszh}[1]{%
+  \par\vspace{0.4em}
+  \noindent{\bfseries\color{chaptercolor} 关键词：}\ \textcolor{rptext}{#1}\par
+}
