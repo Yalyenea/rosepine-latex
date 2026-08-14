@@ -1,0 +1,37 @@
+\documentclass[12pt,oneside,openany]{book}
+\input{preamble}
+
+\renewcommand{\CoverTitle}{++PROJECT-TITLE++}
+\renewcommand{\CoverSubtitle}{++PROJECT-SUBTITLE++}
+\renewcommand{\CoverAuthors}{++PROJECT-AUTHORS++}
+\renewcommand{\CoverTag}{English edition}
+
+\title{++PROJECT-TITLE++}
+\author{++PROJECT-AUTHORS++}
+\date{\today}
+
+\hypersetup{
+  pdftitle={++PROJECT-TITLE++},
+  pdfauthor={++PROJECT-AUTHORS++}
+}
+
+\begin{document}
+\hypersetup{pageanchor=false}
+\makecover
+
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \fancyfoot[C]{\color{rpmuted}\thepage}
+  \renewcommand{\headrulewidth}{0pt}
+}
+\frontmatter
+\pdfbookmark[0]{Contents}{toc}
+\tableofcontents
+\clearpage
+\mainmatter
+\hypersetup{pageanchor=true}
+\pagestyle{fancy}
+
+\input{chapters.tex}
+
+\end{document}

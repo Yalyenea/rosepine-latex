@@ -1,0 +1,172 @@
+\documentclass[UTF8,fontset=none]{ctexart}
+\newif\ifposterlandscape
+\posterlandscapetrue
+% 竖版：\posterlandscapefalse
+\input{preamble}
+
+\renewcommand{\PosterTitle}{经验谱分布与 Marchenko--Pastur 律}
+\renewcommand{\PosterAuthors}{张三 \quad$\cdot$\quad 李四 \quad$\cdot$\quad 王五}
+\renewcommand{\PosterAffil}{某某大学 数学科学学院}
+\renewcommand{\PosterTag}{先识别噪声窗，再讨论尖刺。}
+
+\begin{document}
+\makeposterbanner
+\begin{postercolumns}
+
+\begin{postercolumn}
+\postercolumnheading{01}{问题}
+
+\begin{posterblock}{背景}
+  高维协方差估计里，样本维数 $p$ 与样本量 $n$ 经常同阶。
+  经典极限 $p$ 固定、$n\to\infty$ 不再适用：样本协方差的特征值会
+  \textcolor{rppine}{系统性地}偏离总体特征值，铺成一段有宽度的连续谱。
+
+  同一现象贯穿主成分分析、谱聚类、金融相关阵清洗与阵列信号处理。
+  若不先理解噪声造成的谱铺展，阈值、因子个数与波达方向估计都会偏。
+  墙报上应先画噪声窗，再谈尖刺，而不是直接贴一张碎石图。
+\end{posterblock}
+
+\posterblockgap
+
+\begin{posterblock}{问题}
+  观测 $X\in\mathbb{R}^{p\times n}$ 的列为 i.i.d.\ 零均值、协方差 $\Sigma$ 的向量，
+  $S_n=n^{-1}XX^\top$。当 $p,n\to\infty$ 且 $\gamma=p/n\to\gamma_\star\in(0,1]$ 时，
+  \[
+    \mu_n=\frac1p\sum_{i=1}^p \delta_{\lambda_i(S_n)}
+  \]
+  收敛到什么？如何依赖总体谱 $\mu_\Sigma$？有限 $(p,n)$ 下偏差有多大？
+  若只看最大特征值，很容易把噪声窗的右端点误判成信号。
+\end{posterblock}
+
+\posterblockgap
+
+\begin{posterblock}[posterquiet]{记号}
+  \begin{itemize}
+    \item $\lambda_\pm=(1\pm\sqrt{\gamma})^2$：噪声窗左右端点
+    \item $m(z)$：极限谱的 Stieltjes 变换，$\operatorname{Im}z>0$
+    \item $\mu_{\mathrm{MP},\gamma}$：参数 $\gamma$ 的 Marchenko--Pastur 律
+    \item 尖刺（spike）：$\Sigma$ 中离群的有限个特征值
+    \item $\ell_c=1+\sqrt{\gamma}$：BBP 临界值
+    \item $\gamma=p/n$：维数比，决定窗口宽度
+  \end{itemize}
+  白噪声 $\Sigma=I_p$ 是基准；有色总体经 Silverstein 方程进入。
+  后面所有阈值、收缩与仿真对照，都先回到这些记号。
+\end{posterblock}
+\end{postercolumn}
+
+\begin{postercolumn}
+\postercolumnheading{02}{谱分布}
+
+\begin{posterblock}{Marchenko--Pastur}
+  \textcolor{rppine}{定理（白噪声）。}
+  若 $\Sigma=I_p$，条目满足四阶矩，则 $\mu_n$ 几乎处处弱收敛到
+  \[
+    \begin{aligned}
+      \mathrm{d}\mu_{\mathrm{MP},\gamma}(\lambda)
+      &=\frac{\sqrt{(\lambda_+-\lambda)(\lambda-\lambda_-)}}{2\pi\gamma\lambda} \\
+      &\quad{}\times\mathbf{1}_{[\lambda_-,\lambda_+]}(\lambda)\,\mathrm{d}\lambda.
+    \end{aligned}
+  \]
+  Stieltjes 变换满足
+  $\gamma z m^2+(z+\gamma-1)m+1=0$（取 $\operatorname{Im}m>0$）。
+  即使总体全是 $1$，样本特征值仍铺满 $[\lambda_-,\lambda_+]$；
+  $\gamma=1/4$ 时窗口约为 $[0.25,\,2.25]$。
+\end{posterblock}
+
+\posterblockgap
+
+\begin{posterblock}[posterfeature]{数值实验}
+  取 $p=800$，$n=3200$（$\gamma=1/4$），$\Sigma=I_p$。
+  直方图应贴住 MP 密度，窗外不应再有散点。
+  \begin{center}
+    \resizebox{0.88\linewidth}{!}{%
+      \begin{tikzpicture}[x=7.2cm,y=4.0cm]
+        \draw[coverpine,line width=1.8pt] (0,0) -- (2.35,0);
+        \draw[coverpine,line width=1.8pt] (0,0) -- (0,1.12);
+        \foreach \x/\lab in {0.25/$\lambda_-$, 1.25/1, 2.25/$\lambda_+$} {
+          \draw[rpsubtle,line width=1pt] (\x,-0.04) -- (\x,0.04);
+          \node[below,color=rpsubtle] at (\x,-0.07) {\lab};
+        }
+        \path[fill=coveraccent!14,draw=none]
+          (0.27,0) plot[domain=0.27:2.23,samples=80,smooth]
+          (\x, {0.52*sqrt((2.25-\x)*(\x-0.25))/\x}) -- (2.23,0) -- cycle;
+        \draw[coveraccent,line width=2.8pt,domain=0.27:2.23,samples=80,smooth]
+          plot (\x, {0.52*sqrt((2.25-\x)*(\x-0.25))/\x});
+        \node[color=coveriris] at (1.62,0.95) {$\mu_{\mathrm{MP}}$};
+      \end{tikzpicture}%
+    }
+  \end{center}
+  \renewcommand{\arraystretch}{1.2}
+  \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lccc@{}}
+    \toprule
+    & 理论 $\lambda_-$ & 理论 $\lambda_+$ & 窗内质量 \\
+    \midrule
+    MP $_{\gamma=1/4}$ & $0.250$ & $2.250$ & $1$ \\
+    一次仿真 & $0.247$ & $2.261$ & $0.998$ \\
+    $50$ 次均值 & $0.249$ & $2.254$ & $0.999$ \\
+    \bottomrule
+  \end{tabular*}
+\end{posterblock}
+
+\posterblockgap
+
+\begin{posterblock}{有色总体与尖刺}
+  一般 $\Sigma$ 由 Silverstein 方程决定：
+  \[
+    m=m_{\mu_\Sigma}\!\Bigl(z-\gamma\int\frac{t}{1+tm}\,\mathrm{d}\mu_\Sigma(t)\Bigr).
+  \]
+  孤立特征值 $\ell>\ell_c=1+\sqrt{\gamma}$ 发生 \textcolor{rppine}{BBP 相变}：
+  子临界被吞进噪声窗；超临界
+  $\lambda_{\mathrm{spike}}\approx \ell+\gamma\ell/(\ell-1)$，
+  特征向量重叠趋于 $1-\gamma/(\ell-1)^2$。
+  这就是 PCA「能看见」的最小信噪比。
+\end{posterblock}
+\end{postercolumn}
+
+\begin{postercolumn}
+\postercolumnheading{03}{实践}
+
+\begin{posterblock}{算法要点}
+  \begin{enumerate}
+    \item 估计 $\hat\gamma$ 与噪声水平，画出 MP 窗 $[\hat\lambda_-,\hat\lambda_+]$。
+    \item 窗内当噪声，只保留窗外尖刺作信号子空间。
+    \item 需要协方差时用 Ledoit--Peche 非线性收缩，不要硬阈值。
+    \item 同时报告窗端点、尖刺位置与重叠度。
+    \item 仿真重复数十次，核对窗内质量是否接近 $1$。
+  \end{enumerate}
+\end{posterblock}
+
+\posterblockgap
+
+\begin{posterblock}[posterfeature]{结论}
+  \begin{itemize}
+    \item 高维样本谱首先是噪声窗，其次才是尖刺。
+    \item MP 端点给出可操作的信号/噪声分界。
+    \item BBP 阈值标出「看不见」的区域，不要在窗内找信号。
+    \item 有色总体不要硬套白噪声公式：解 Silverstein 或做非线性收缩。
+    \item 报告端点、尖刺位置与重叠度，而不是只贴碎石图。
+    \item 本页是 A0 横版满版 demo，换成你的定理、图和表即可。
+  \end{itemize}
+\end{posterblock}
+
+\posterblockgap
+
+\begin{posterblock}[posterquiet]{参考文献}
+  [1] Marchenko, Pastur. Math.\ USSR-Sb.\ 1 (1967).
+
+  [2] Silverstein, Bai. J.\ Multivariate Anal.\ 54 (1995).
+
+  [3] Baik, Ben Arous, Peche. Ann.\ Probab.\ 33 (2005).
+
+  [4] Ledoit, Peche. Probab.\ Theory Relat.\ Fields 151 (2011).
+
+  [5] Yao, Zheng, Bai. Large Sample Covariance Matrices. CUP (2015).
+
+  [6] Couillet, Debbah. Random Matrix Methods for Wireless Communications. CUP (2011).
+
+  [7] Potters, Bouchaud. A First Course in Random Matrix Theory. CUP (2020).
+\end{posterblock}
+\end{postercolumn}
+
+\end{postercolumns}
+\end{document}

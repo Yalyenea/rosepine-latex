@@ -1,0 +1,91 @@
+% Rose Pine Dawn — A0 poster. Do not \input theme.tex (A4 geometry / headings conflict).
+% Orientation: default portrait. In main.tex *before* \input{preamble}:
+%   \newif\ifposterlandscape
+%   \posterlandscapetrue
+\makeatletter
+\@ifundefined{ifposterlandscape}{\newif\ifposterlandscape}{}
+\makeatother
+\ifposterlandscape
+  \usepackage[a0paper,landscape,margin=2.2cm]{geometry}
+\else
+  \usepackage[a0paper,margin=2.2cm]{geometry}
+\fi
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric}
+\usepackage{amsmath,amssymb,amsthm,mathtools,bm}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+\definecolor{rpbase}{HTML}{faf4ed}
+\definecolor{rpsurface}{HTML}{fffaf3}
+\definecolor{rpoverlay}{HTML}{f2e9e1}
+\definecolor{rpmuted}{HTML}{9893a5}
+\definecolor{rpsubtle}{HTML}{797593}
+\definecolor{rptext}{HTML}{575168}
+\definecolor{rplove}{HTML}{b4637a}
+\definecolor{rpgold}{HTML}{ea9d34}
+\definecolor{rprose}{HTML}{d7827e}
+\definecolor{rppine}{HTML}{286983}
+\definecolor{rpfoam}{HTML}{56949f}
+\definecolor{rpiris}{HTML}{907aa9}
+\definecolor{chaptercolor}{HTML}{286983}
+\definecolor{linkcolor}{HTML}{b4637a}
+\definecolor{coverbg}{HTML}{faf4ed}
+\definecolor{covertxt}{HTML}{575168}
+\definecolor{coveraccent}{HTML}{d7827e}
+\definecolor{coverpine}{HTML}{286983}
+\definecolor{coveriris}{HTML}{907aa9}
+\definecolor{boxframe}{HTML}{56949f}
+\definecolor{boxbg}{HTML}{f2e9e1}
+
+\usepackage{microtype}
+\usepackage[skins]{tcolorbox}
+\usepackage{enumitem}
+\setlist{nosep,leftmargin=1.4em}
+
+\pagecolor{rpbase}
+\color{rptext}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+
+\newcommand{\PosterTitle}{Title}
+\newcommand{\PosterAuthors}{Author}
+\newcommand{\PosterAffil}{}
+\newcommand{\PosterTag}{}
+
+\newcommand{\makeposterbanner}{%
+  {\color{coveraccent}\rule{\textwidth}{3.2pt}\par}
+  \vspace{0.7em}
+  {\fontsize{48}{56}\selectfont\bfseries\color{covertxt}\PosterTitle\par}
+  \vspace{0.45em}
+  {\fontsize{22}{28}\selectfont\color{coverpine}\PosterAuthors\par}
+  \vspace{0.25em}
+  {\fontsize{16}{22}\selectfont\color{rpsubtle}\PosterAffil\par}
+  \vspace{0.2em}
+  {\fontsize{14}{18}\selectfont\color{coveriris}\PosterTag\par}
+  \vspace{0.55em}
+  {\color{coverpine}\rule{\textwidth}{3.2pt}\par}
+  \vspace{0.9em}
+}
+
+\newtcolorbox{posterbox}[1][]{%
+  enhanced,
+  colback=rpsurface,
+  colframe=rppine,
+  coltitle=rpbase,
+  fonttitle=\bfseries\LARGE,
+  boxrule=1.4pt,
+  arc=6pt,
+  left=14pt,right=14pt,top=10pt,bottom=12pt,
+  toptitle=6pt,bottomtitle=6pt,
+  colbacktitle=rppine,
+  #1
+}
+
+\newcommand{\postercol}[1]{%
+  \begin{minipage}[t]{0.32\textwidth}#1\end{minipage}%
+}
+
+\graphicspath{{imgs/}{images/}}

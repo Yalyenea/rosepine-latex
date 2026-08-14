@@ -1,0 +1,29 @@
+# LaTeX
+*.pdf
+*.xdv
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.synctex(busy)
+*.nav
+*.snm
+*.toc
+*.lot
+*.lof
+*.tdo
+*.ilg
+*.xdy
+*.run.xml
+*.bcf
+
+# Python / macOS
+__pycache__/
+.DS_Store
+
+# Local scaffold tests
+.tmp/

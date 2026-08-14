@@ -1,0 +1,20 @@
+\documentclass[11pt,a4paper]{article}
+\input{preamble}
+
+\renewcommand{\PaperTitle}{++PROJECT-TITLE++}
+\renewcommand{\PaperAuthors}{++PROJECT-AUTHORS++}
+\renewcommand{\PaperAffil}{++PROJECT-AFFIL++}
+\renewcommand{\PaperTag}{++PAPER-ID++}
+
+\hypersetup{
+  pdftitle={++PROJECT-TITLE++},
+  pdfauthor={++PROJECT-AUTHORS++}
+}
+
+\begin{document}
+\maketitlepage
+\input{inputs/00-frontmatter}
+\input{inputs/10-sections}
+\input{inputs/20-appendices}
+\input{inputs/30-backmatter}
+\end{document}

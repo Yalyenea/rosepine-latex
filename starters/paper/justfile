@@ -1,0 +1,15 @@
+set shell := ["bash", "-lc"]
+
+build:
+  #!/usr/bin/env bash
+  set -euo pipefail
+  cd latex
+  if [[ -f main.tex ]]; then
+    latexmk -xelatex -interaction=nonstopmode -halt-on-error main.tex
+  fi
+  if [[ -f main_zh.tex ]]; then
+    latexmk -xelatex -interaction=nonstopmode -halt-on-error main_zh.tex
+  fi
+
+clean:
+  cd latex && latexmk -C

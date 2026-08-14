@@ -1,0 +1,17 @@
+\documentclass[11pt,a4paper]{article}
+\input{preamble}
+
+\renewcommand{\insertnotestitle}{++PROJECT-TITLE++}
+\renewcommand{\insertnotesauthor}{++PROJECT-AUTHORS++}
+\renewcommand{\NotesCourse}{++COURSE++}
+\renewcommand{\NotesTag}{++PROJECT-SUBTITLE++}
+
+\hypersetup{
+  pdftitle={++PROJECT-TITLE++},
+  pdfauthor={++PROJECT-AUTHORS++}
+}
+
+\begin{document}
+\makenotesheader
+\input{lectures/01-intro.tex}
+\end{document}

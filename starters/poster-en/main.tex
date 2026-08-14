@@ -1,0 +1,176 @@
+\documentclass{article}
+\newif\ifposterlandscape
+\posterlandscapetrue
+% Portrait: \posterlandscapefalse
+\input{preamble}
+
+\renewcommand{\PosterTitle}{Empirical Spectra and the Marchenko--Pastur Law}
+\renewcommand{\PosterAuthors}{Ada Lovelace \quad$\cdot$\quad Alan Turing \quad$\cdot$\quad Andrey Kolmogorov}
+\renewcommand{\PosterAffil}{Department of Mathematics}
+\renewcommand{\PosterTag}{Noise bulk first. Spikes second.}
+
+\begin{document}
+\makeposterbanner
+\begin{postercolumns}
+
+\begin{postercolumn}
+\postercolumnheading{01}{Problem}
+
+\begin{posterblock}{Background}
+  In high-dimensional covariance estimation the dimension $p$ and the sample
+  size $n$ are often of the same order. The classical limit with $p$ fixed
+  and $n\to\infty$ fails: sample eigenvalues \textbf{systematically} spread
+  into a continuous bulk.
+
+  The same bulk appears in PCA, spectral clustering, cleaning of financial
+  correlation matrices, and array signal processing. Draw the noise window
+  first, then talk about spikes---not a scree plot alone.
+\end{posterblock}
+
+\posterblockgap
+
+\begin{posterblock}{Question}
+  Columns of $X\in\mathbb{R}^{p\times n}$ are i.i.d.\ mean-zero with covariance
+  $\Sigma$, and $S_n=n^{-1}XX^\top$. When $p,n\to\infty$ and
+  $\gamma=p/n\to\gamma_\star\in(0,1]$, what is the limit of
+  \[
+    \mu_n=\frac1p\sum_{i=1}^p \delta_{\lambda_i(S_n)}\,?
+  \]
+  How does it depend on $\mu_\Sigma$, and how large is the finite-$(p,n)$ bias?
+  Looking only at the largest eigenvalue easily mistakes the right bulk edge
+  for a signal.
+\end{posterblock}
+
+\posterblockgap
+
+\begin{posterblock}[posterquiet]{Notation}
+  \begin{itemize}
+    \item $\lambda_\pm=(1\pm\sqrt{\gamma})^2$: edges of the noise bulk
+    \item $m(z)$: Stieltjes transform, $\operatorname{Im}z>0$
+    \item $\mu_{\mathrm{MP},\gamma}$: Marchenko--Pastur law of ratio $\gamma$
+    \item spikes: finitely many outliers of $\Sigma$
+    \item $\ell_c=1+\sqrt{\gamma}$: BBP critical value
+    \item $\gamma=p/n$: aspect ratio that sets the window width
+  \end{itemize}
+  White noise $\Sigma=I_p$ is the reference; coloured populations enter through
+  Silverstein. Every later threshold starts from these symbols.
+\end{posterblock}
+\end{postercolumn}
+
+\begin{postercolumn}
+\postercolumnheading{02}{Spectrum}
+
+\begin{posterblock}{Marchenko--Pastur}
+  \textbf{Theorem (white noise).}
+  If $\Sigma=I_p$ and entries have four finite moments, $\mu_n$ converges
+  weakly almost surely to
+  \[
+    \begin{aligned}
+      \mathrm{d}\mu_{\mathrm{MP},\gamma}(\lambda)
+      &=\frac{\sqrt{(\lambda_+-\lambda)(\lambda-\lambda_-)}}{2\pi\gamma\lambda} \\
+      &\quad{}\times\mathbf{1}_{[\lambda_-,\lambda_+]}(\lambda)\,\mathrm{d}\lambda.
+    \end{aligned}
+  \]
+  The Stieltjes transform solves
+  $\gamma z m^2+(z+\gamma-1)m+1=0$ ($\operatorname{Im}m>0$).
+  Even if every population eigenvalue equals $1$, the sample spectrum fills
+  $[\lambda_-,\lambda_+]$; for $\gamma=1/4$ the window is about $[0.25,\,2.25]$.
+\end{posterblock}
+
+\posterblockgap
+
+\begin{posterblock}[posterfeature]{Numerics}
+  Take $p=800$, $n=3200$ ($\gamma=1/4$) and $\Sigma=I_p$.
+  The histogram should track the MP density; nothing should sit outside the window.
+  \begin{center}
+    \resizebox{0.88\linewidth}{!}{%
+      \begin{tikzpicture}[x=7.2cm,y=4.0cm]
+        \draw[coverpine,line width=1.8pt] (0,0) -- (2.35,0);
+        \draw[coverpine,line width=1.8pt] (0,0) -- (0,1.12);
+        \foreach \x/\lab in {0.25/$\lambda_-$, 1.25/1, 2.25/$\lambda_+$} {
+          \draw[rpsubtle,line width=1pt] (\x,-0.04) -- (\x,0.04);
+          \node[below,color=rpsubtle] at (\x,-0.07) {\lab};
+        }
+        \path[fill=coveraccent!14,draw=none]
+          (0.27,0) plot[domain=0.27:2.23,samples=80,smooth]
+          (\x, {0.52*sqrt((2.25-\x)*(\x-0.25))/\x}) -- (2.23,0) -- cycle;
+        \draw[coveraccent,line width=2.8pt,domain=0.27:2.23,samples=80,smooth]
+          plot (\x, {0.52*sqrt((2.25-\x)*(\x-0.25))/\x});
+        \node[color=coveriris] at (1.62,0.95) {$\mu_{\mathrm{MP}}$};
+      \end{tikzpicture}%
+    }
+  \end{center}
+  \renewcommand{\arraystretch}{1.2}
+  \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lccc@{}}
+    \toprule
+    & theory $\lambda_-$ & theory $\lambda_+$ & bulk mass \\
+    \midrule
+    MP $_{\gamma=1/4}$ & $0.250$ & $2.250$ & $1$ \\
+    one draw & $0.247$ & $2.261$ & $0.998$ \\
+    mean of $50$ & $0.249$ & $2.254$ & $0.999$ \\
+    \bottomrule
+  \end{tabular*}
+\end{posterblock}
+
+\posterblockgap
+
+\begin{posterblock}{Spikes and BBP}
+  A general $\Sigma$ is encoded by Silverstein's equation
+  \[
+    m=m_{\mu_\Sigma}\!\Bigl(z-\gamma\int\frac{t}{1+tm}\,\mathrm{d}\mu_\Sigma(t)\Bigr).
+  \]
+  An isolated eigenvalue $\ell>\ell_c=1+\sqrt{\gamma}$ undergoes the
+  \textbf{BBP transition}: below threshold it is swallowed by the bulk; above,
+  $\lambda_{\mathrm{spike}}\approx \ell+\gamma\ell/(\ell-1)$,
+  with overlap $1-\gamma/(\ell-1)^2$.
+  That is the smallest SNR PCA can see.
+\end{posterblock}
+\end{postercolumn}
+
+\begin{postercolumn}
+\postercolumnheading{03}{Practice}
+
+\begin{posterblock}{Practical steps}
+  \begin{enumerate}
+    \item Estimate $\hat\gamma$ and the noise level; draw $[\hat\lambda_-,\hat\lambda_+]$.
+    \item Treat in-bulk eigenvalues as noise; keep only outliers as signal.
+    \item For a covariance estimate, use Ledoit--Peche nonlinear shrinkage.
+    \item Report edges, spike locations, and overlaps together.
+    \item Repeat tens of times; bulk mass should sit near $1$.
+  \end{enumerate}
+\end{posterblock}
+
+\posterblockgap
+
+\begin{posterblock}[posterfeature]{Takeaways}
+  \begin{itemize}
+    \item A high-dimensional sample spectrum is a noise bulk first, spikes second.
+    \item MP edges give a usable signal/noise cut.
+    \item The BBP threshold marks what cannot be seen---do not hunt inside the window.
+    \item Do not force the white-noise formula on a coloured $\Sigma$.
+    \item Report edges, spike locations, and overlaps, not only a scree plot.
+    \item This sheet is a filled A0 landscape demo. Swap in your content.
+  \end{itemize}
+\end{posterblock}
+
+\posterblockgap
+
+\begin{posterblock}[posterquiet]{References}
+  [1] Marchenko, Pastur. Math.\ USSR-Sb.\ 1 (1967).
+
+  [2] Silverstein, Bai. J.\ Multivariate Anal.\ 54 (1995).
+
+  [3] Baik, Ben Arous, Peche. Ann.\ Probab.\ 33 (2005).
+
+  [4] Ledoit, Peche. Probab.\ Theory Relat.\ Fields 151 (2011).
+
+  [5] Yao, Zheng, Bai. Large Sample Covariance Matrices. CUP (2015).
+
+  [6] Couillet, Debbah. Random Matrix Methods for Wireless Communications. CUP (2011).
+
+  [7] Potters, Bouchaud. A First Course in Random Matrix Theory. CUP (2020).
+\end{posterblock}
+\end{postercolumn}
+
+\end{postercolumns}
+\end{document}

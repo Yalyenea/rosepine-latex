@@ -1,0 +1,9 @@
+set shell := ["bash", "-lc"]
+
+build:
+  cd manuscript && latexmk -xelatex -interaction=nonstopmode -halt-on-error main.tex
+  mkdir -p build
+  cp manuscript/main.pdf build/
+
+clean:
+  cd manuscript && latexmk -C
