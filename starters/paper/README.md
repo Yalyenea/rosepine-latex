@@ -1,6 +1,6 @@
 # ++PROJECT-TITLE++ / ++PROJECT-TITLE-ZH++
 
-Rose Pine paper (`article` / `ctexart` + XeLaTeX). Same palette as the book templates — not a conference class.
+Rose Pine 论文（`article` / `ctexart` + XeLaTeX）。
 
 ```
 main.tex / main_zh.tex
@@ -12,7 +12,5 @@ rosepine/
 just build-en    # → build/<dir>-en.pdf
 just build-zh    # → build/<dir>-zh.pdf
 just build
-just clean       # drop .tmp/
+just clean       # 只清 .tmp/
 ```
-
-Intermediates stay in `.tmp/`. For language-only projects, scaffold `en` or `zh` and only one main remains.

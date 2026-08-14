@@ -1,18 +1,12 @@
 # ++PROJECT-TITLE++
 
-Rose Pine English book starter (`book` + XeLaTeX).
+Rose Pine English book (`book` + XeLaTeX).
 
-## Dependencies
-
-- `latexmk`, `xelatex`
-- Font: Latin Modern Roman
-
-## Build
+Font: Latin Modern Roman.
 
 ```bash
 just build
 # PDF: build/main.pdf
 ```
 
-Theme lives in `manuscript/rosepine/` (snapshot of factory `rosepine/`).
-For a Chinese edition, scaffold a separate `book-zh` project.
+Cover fields in `main.tex`; chapters in `manuscript/chapters/`.

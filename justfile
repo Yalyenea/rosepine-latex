@@ -39,7 +39,7 @@ sync-theme:
   @set -euo pipefail; \
     cp -R "{{factory}}/rosepine/." "{{factory}}/starters/book-zh/manuscript/rosepine/"; \
     cp -R "{{factory}}/rosepine/." "{{factory}}/starters/book-en/manuscript/rosepine/"; \
-    cp -R "{{factory}}/rosepine/." "{{factory}}/starters/paper/latex/rosepine/"; \
+    cp -R "{{factory}}/rosepine/." "{{factory}}/starters/paper/rosepine/"; \
     for k in slide notes handout exercises poster; do \
       cp -R "{{factory}}/rosepine/." "{{factory}}/starters/$k-zh/rosepine/"; \
       cp -R "{{factory}}/rosepine/." "{{factory}}/starters/$k-en/rosepine/"; \
