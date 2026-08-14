@@ -1,15 +1,29 @@
 set shell := ["bash", "-lc"]
 
+name := `basename "$PWD"`
+flags := "-xelatex -interaction=nonstopmode -halt-on-error"
+
+default:
+  @just --list
+
+build-en:
+  mkdir -p .tmp/en build
+  latexmk {{flags}} -outdir=.tmp/en main.tex
+  cp .tmp/en/main.pdf build/{{name}}-en.pdf
+
+build-zh:
+  mkdir -p .tmp/zh build
+  latexmk {{flags}} -outdir=.tmp/zh main_zh.tex
+  cp .tmp/zh/main_zh.pdf build/{{name}}-zh.pdf
+
 build:
   #!/usr/bin/env bash
   set -euo pipefail
-  cd latex
-  if [[ -f main.tex ]]; then
-    latexmk -xelatex -interaction=nonstopmode -halt-on-error main.tex
-  fi
-  if [[ -f main_zh.tex ]]; then
-    latexmk -xelatex -interaction=nonstopmode -halt-on-error main_zh.tex
-  fi
+  if [[ -f main.tex ]]; then just build-en; fi
+  if [[ -f main_zh.tex ]]; then just build-zh; fi
 
 clean:
-  cd latex && latexmk -C
+  rm -rf .tmp
+
+cleanall: clean
+  rm -rf build

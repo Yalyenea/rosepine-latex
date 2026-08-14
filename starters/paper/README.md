@@ -1,17 +1,18 @@
 # ++PROJECT-TITLE++ / ++PROJECT-TITLE-ZH++
 
-Rose Pine paper starter (`article` / `ctexart` + XeLaTeX). Same palette and fonts as the book templates — not a conference style file.
+Rose Pine paper (`article` / `ctexart` + XeLaTeX). Same palette as the book templates — not a conference class.
 
-## Build
-
-```bash
-just build
+```
+main.tex / main_zh.tex
+inputs/ / inputs_zh/
+rosepine/
 ```
 
-## Layout
+```bash
+just build-en    # → build/<dir>-en.pdf
+just build-zh    # → build/<dir>-zh.pdf
+just build
+just clean       # drop .tmp/
+```
 
-- EN: `latex/main.tex` + `inputs/`
-- ZH: `latex/main_zh.tex` + `inputs_zh/`
-- Theme snapshot: `latex/rosepine/`
-
-For language-only projects, keep one main and drop the other tree after scaffold.
+Intermediates stay in `.tmp/`. For language-only projects, scaffold `en` or `zh` and only one main remains.

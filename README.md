@@ -43,7 +43,7 @@ Need both languages for a book? Make two projects. There is no bilingual-in-one-
 
 1. `cd DEST && just build`
 2. Edit title / author / `hypersetup` in `main*.tex`
-3. Write content (`manuscript/chapters/`, `latex/inputs*`, `frames/`, …)
+3. Write content (`manuscript/chapters/`, `inputs*` for papers, `frames/`, …)
 
 Poster portrait: `\posterlandscapefalse` before `\input{preamble}`.
 

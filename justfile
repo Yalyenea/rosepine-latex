@@ -65,10 +65,11 @@ test:
     test -f "$tmp/book-zh/justfile"; \
     test -f "$tmp/book-zh/manuscript/main.tex"; \
     test -f "$tmp/book-zh/manuscript/rosepine/theme.tex"; \
-    test -f "$tmp/paper-bi/latex/main.tex"; \
-    test -f "$tmp/paper-bi/latex/main_zh.tex"; \
-    test ! -f "$tmp/paper-en/latex/main_zh.tex"; \
-    test ! -f "$tmp/paper-zh/latex/main.tex"; \
+    test -f "$tmp/paper-bi/main.tex"; \
+    test -f "$tmp/paper-bi/main_zh.tex"; \
+    test -f "$tmp/paper-bi/justfile"; \
+    test ! -f "$tmp/paper-en/main_zh.tex"; \
+    test ! -f "$tmp/paper-zh/main.tex"; \
     test -f "$tmp/slide-zh/main.tex"; \
     if grep -R --include='*.tex' --include='*.md' --include='justfile' -n '++[A-Z0-9-]*++' "$tmp"; then \
       echo "unreplaced placeholders"; exit 1; \

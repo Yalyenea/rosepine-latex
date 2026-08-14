@@ -175,14 +175,14 @@ case "$KIND" in
     cp -R "$FACTORY/rosepine" "$DEST/manuscript/rosepine"
     ;;
   paper)
-    rm -rf "$DEST/latex/rosepine"
-    cp -R "$FACTORY/rosepine" "$DEST/latex/rosepine"
+    rm -rf "$DEST/rosepine"
+    cp -R "$FACTORY/rosepine" "$DEST/rosepine"
     if [[ "$VARIANT" == "en" ]]; then
-      rm -f "$DEST/latex/main_zh.tex" "$DEST/latex/preamble_zh.tex"
-      rm -rf "$DEST/latex/inputs_zh"
+      rm -f "$DEST/main_zh.tex" "$DEST/preamble_zh.tex"
+      rm -rf "$DEST/inputs_zh"
     elif [[ "$VARIANT" == "zh" ]]; then
-      rm -f "$DEST/latex/main.tex" "$DEST/latex/preamble.tex"
-      rm -rf "$DEST/latex/inputs"
+      rm -f "$DEST/main.tex" "$DEST/preamble.tex"
+      rm -rf "$DEST/inputs"
     fi
     ;;
   slide|notes|handout|exercises|poster)
