@@ -1,8 +1,8 @@
 # rosepine-latex
 
-[Rosé Pine Dawn](https://rosepinetheme.com) starters for XeLaTeX / pdfLaTeX.
+[English](README.md) · [中文](README_zh.md)
 
-[中文](README.zh.md)
+[Rosé Pine Dawn](https://rosepinetheme.com) starters for XeLaTeX / pdfLaTeX.
 
 English documents use **pdfLaTeX**. Chinese documents use **XeLaTeX**.
 

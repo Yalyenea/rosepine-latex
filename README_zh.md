@@ -1,8 +1,8 @@
 # rosepine-latex
 
-[Rosé Pine Dawn](https://rosepinetheme.com) 的 XeLaTeX / pdfLaTeX 模板。
+[English](README.md) · [中文](README_zh.md)
 
-[English](README.md)
+[Rosé Pine Dawn](https://rosepinetheme.com) 的 XeLaTeX / pdfLaTeX 模板。
 
 英文用 **pdfLaTeX**，中文用 **XeLaTeX**。
 
