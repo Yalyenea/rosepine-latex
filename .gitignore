@@ -25,5 +25,9 @@
 __pycache__/
 .DS_Store
 
-# Local scaffold tests
+# Local scaffold tests / compiled samples
 .tmp/
+build/
+
+# Theme lives only in /rosepine. Injected at scaffold time.
+starters/**/rosepine/

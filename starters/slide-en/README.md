@@ -1,6 +1,6 @@
 # ++PROJECT-TITLE++
 
-Rose Pine English slides (`beamer` + XeLaTeX, 16:9).
+Rose Pine English slides (`beamer` + pdfLaTeX, 16:9).
 
 ```bash
 just build

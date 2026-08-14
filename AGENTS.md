@@ -1,11 +1,11 @@
 # rosepine-latex
 
-Copy source for Rose Pine XeLaTeX starters.
+Copy source for Rose Pine starters. English: pdfLaTeX. Chinese: XeLaTeX.
 
-- `rosepine/` — theme (edit here, then `just sync-theme`)
-- `starters/` — one directory per kind
-- `scripts/scaffold.sh` — used by `just book` / `paper` / …
-- Generated projects get a local `rosepine/` snapshot
+- `rosepine/` — the only theme copy
+- `starters/` — templates; no theme snapshot
+- `scripts/scaffold.sh` — copies a starter and injects `rosepine/`
+- Generated projects get their own `rosepine/` so they stand alone
 
-Factory: `just` / `just test` / `just sync-theme`.  
+Factory: `just` / `just test`.  
 Generated project: `just build`.

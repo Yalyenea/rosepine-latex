@@ -11,6 +11,7 @@ usage() {
   cat <<'EOF'
 Usage:
   scaffold.sh book      DEST [zh|en]          # default zh
+  scaffold.sh thesis    DEST [zh|en]          # default zh
   scaffold.sh paper     DEST [bi|en|zh]       # default bi
   scaffold.sh slide     DEST [zh|en]
   scaffold.sh notes     DEST [zh|en]
@@ -88,26 +89,39 @@ PY
 }
 
 case "$KIND" in
-  book)
+  book|thesis)
     VARIANT="${VARIANT:-zh}"
-    case "$VARIANT" in zh|en) ;; *) echo "book lang must be zh|en"; exit 1 ;; esac
-    SRC="$FACTORY/starters/book-$VARIANT"
+    case "$VARIANT" in zh|en) ;; *) echo "$KIND lang must be zh|en"; exit 1 ;; esac
+    SRC="$FACTORY/starters/${KIND}-$VARIANT"
     SLUG="$BASE"
     PAPER_ID="$BASE"
     if [[ "$VARIANT" == "zh" ]]; then
       TITLE="Project Title"
       TITLE_ZH="$BASE"
-      SUBTITLE="Subtitle"
-      SUBTITLE_ZH="副标题"
       AUTHORS="作者"
+      if [[ "$KIND" == "thesis" ]]; then
+        SUBTITLE="Subtitle"
+        SUBTITLE_ZH="副标题"
+        AFFIL="学校 / 学院"
+      else
+        SUBTITLE="Subtitle"
+        SUBTITLE_ZH="副标题"
+        AFFIL=""
+      fi
     else
       TITLE="$BASE"
       TITLE_ZH="$BASE"
-      SUBTITLE="Subtitle"
-      SUBTITLE_ZH="副标题"
       AUTHORS="Author"
+      if [[ "$KIND" == "thesis" ]]; then
+        SUBTITLE="Subtitle"
+        SUBTITLE_ZH="副标题"
+        AFFIL="University"
+      else
+        SUBTITLE="Subtitle"
+        SUBTITLE_ZH="副标题"
+        AFFIL=""
+      fi
     fi
-    AFFIL=""
     COURSE=""
     DUE=""
     ;;
@@ -170,7 +184,7 @@ mkdir -p "$(dirname "$DEST")"
 cp -R "$SRC" "$DEST"
 
 case "$KIND" in
-  book)
+  book|thesis)
     rm -rf "$DEST/manuscript/rosepine"
     cp -R "$FACTORY/rosepine" "$DEST/manuscript/rosepine"
     ;;

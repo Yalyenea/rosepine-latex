@@ -1,6 +1,6 @@
 # ++PROJECT-TITLE++
 
-Rose Pine English book (`book` + XeLaTeX).
+Rose Pine English book (`book` + pdfLaTeX).
 
 Font: Latin Modern Roman.
 

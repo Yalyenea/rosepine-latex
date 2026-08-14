@@ -1,19 +1,20 @@
 set shell := ["bash", "-lc"]
 
 name := `basename "$PWD"`
-flags := "-xelatex -interaction=nonstopmode -halt-on-error"
+flags_en := "-pdf -interaction=nonstopmode -halt-on-error"
+flags_zh := "-xelatex -interaction=nonstopmode -halt-on-error"
 
 default:
   @just --list
 
 build-en:
   mkdir -p .tmp/en build
-  latexmk {{flags}} -outdir=.tmp/en main.tex
+  latexmk {{flags_en}} -outdir=.tmp/en main.tex
   cp .tmp/en/main.pdf build/{{name}}-en.pdf
 
 build-zh:
   mkdir -p .tmp/zh build
-  latexmk {{flags}} -outdir=.tmp/zh main_zh.tex
+  latexmk {{flags_zh}} -outdir=.tmp/zh main_zh.tex
   cp .tmp/zh/main_zh.pdf build/{{name}}-zh.pdf
 
 build:

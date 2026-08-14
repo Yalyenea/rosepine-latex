@@ -1,6 +1,6 @@
 # ++PROJECT-TITLE++
 
-Rose Pine English handout (4-up slides). Edit `frames/`.
+Rose Pine English handout (4-up slides, pdfLaTeX). Edit `frames/`.
 
 ```bash
 just build
